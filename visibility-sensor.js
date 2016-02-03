@@ -2,6 +2,7 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
+var TimerMixin = require('react-timer-mixin');
 
 var containmentPropType = React.PropTypes.any;
 
@@ -10,6 +11,7 @@ if (typeof window !== 'undefined') {
 }
 
 module.exports = React.createClass({
+  mixins: [TimerMixin],
   displayName: 'VisibilitySensor',
 
   propTypes: {
@@ -59,12 +61,12 @@ module.exports = React.createClass({
 
   startWatching: function () {
     if (this.interval) { return; }
-    this.interval = setInterval(this.check, this.props.delay);
+    this.interval = this.setInterval(this.check, this.props.delay);
     this.check();
   },
 
   stopWatching: function () {
-    this.interval = clearInterval(this.interval);
+    this.interval = this.clearInterval(this.interval);
   },
 
   /**
